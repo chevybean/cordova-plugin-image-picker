@@ -17,12 +17,12 @@
     NSDictionary *options = [command.arguments objectAtIndex: 0];
     NSInteger maximumImagesCount = [[options objectForKey:@"maximumImagesCount"] integerValue];
     NSString *uiThemeColor = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"uiThemeColor"] stringValue];
-    
+
     UIColor *color = nil;
     NSString *photoSelImageName = nil;
     
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:maximumImagesCount delegate:self];
-    
+
     if ([uiThemeColor isEqual:@"Yellow"]) {
         photoSelImageName = @"photo_sel_photoPickerVc_p";
         color = [UIColor colorWithRed:251 / 255.0 green:192 / 255.0 blue:45 / 255.0 alpha:1];
@@ -30,7 +30,7 @@
         photoSelImageName = @"photo_sel_photoPickerVc_t";
         color = [UIColor colorWithRed:97 / 255.0 green:170 / 255.0 blue:238 / 255.0 alpha:1];
     }
-    
+
     if (color != nil) {
         imagePickerVc.oKButtonTitleColorNormal = color;
         imagePickerVc.iconThemeColor = color;
@@ -40,7 +40,7 @@
             naviBar.backgroundColor = color;
         };
     }
-    
+
     if (photoSelImageName != nil) {
         // Must be set after setting the color
         imagePickerVc.photoSelImage = [UIImage tz_imageNamedFromMyBundle:photoSelImageName];
@@ -61,19 +61,17 @@
 
 - (void) imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
     CDVPluginResult *result = nil;
-    
+
     NSMutableArray *resultPathArray = [[NSMutableArray alloc] init];
     NSString *tmpPath = [NSTemporaryDirectory() stringByStandardizingPath];
-    
+
     NSData *data = nil;
     NSError *err = nil;
-    
+
     NSString *filePath = nil;
-    NSString *fileName = nil;
-    
+
     for (UIImage *photo in photos) {
-        fileName = [assets valueForKey:@"filename"];
-        filePath = [NSString stringWithFormat:@"%@/%@%@", tmpPath, [[NSProcessInfo processInfo] globallyUniqueString], fileName];
+        filePath = [NSString stringWithFormat:@"%@/%@", tmpPath, [[NSProcessInfo processInfo] globallyUniqueString]];
         
         @autoreleasepool {
             data = UIImageJPEGRepresentation(photo, 1);
@@ -85,7 +83,7 @@
             }
         }
     }
-    
+
     if (result == nil) {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:resultPathArray];
     }
