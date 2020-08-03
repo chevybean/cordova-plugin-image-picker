@@ -16,17 +16,17 @@
     self.callbackId = command.callbackId;
     NSDictionary *options = [command.arguments objectAtIndex: 0];
     NSInteger maximumImagesCount = [[options objectForKey:@"maximumImagesCount"] integerValue];
-    NSString *uiThemeColor = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"uiThemeColor"] stringValue];
+    NSString *uiThemeColorString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"uiThemeColor"];
 
     UIColor *color = nil;
     NSString *photoSelImageName = nil;
     
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:maximumImagesCount delegate:self];
 
-    if ([uiThemeColor isEqual:@"Yellow"]) {
+    if ([uiThemeColorString isEqual:@"Yellow"]) {
         photoSelImageName = @"photo_sel_photoPickerVc_p";
         color = [UIColor colorWithRed:251 / 255.0 green:192 / 255.0 blue:45 / 255.0 alpha:1];
-    } else if ([uiThemeColor isEqual:@"Blue"]) {
+    } else if ([uiThemeColorString isEqual:@"Blue"]) {
         photoSelImageName = @"photo_sel_photoPickerVc_t";
         color = [UIColor colorWithRed:97 / 255.0 green:170 / 255.0 blue:238 / 255.0 alpha:1];
     }
