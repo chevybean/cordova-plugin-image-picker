@@ -20,7 +20,7 @@
 
     UIColor *color = nil;
     NSString *photoSelImageName = nil;
-    
+
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:maximumImagesCount delegate:self];
 
     if ([uiThemeColorString isEqual:@"Yellow"]) {
@@ -29,6 +29,9 @@
     } else if ([uiThemeColorString isEqual:@"Blue"]) {
         photoSelImageName = @"photo_sel_photoPickerVc_t";
         color = [UIColor colorWithRed:97 / 255.0 green:170 / 255.0 blue:238 / 255.0 alpha:1];
+    } else if ([uiThemeColorString isEqual:@"Purple"]) {
+        photoSelImageName = @"photo_sel_photoPickerVc_p";
+        color = [UIColor colorWithRed:201 / 255.0 green:116 / 255.0 blue:149 / 255.0 alpha:1];
     }
 
     if (color != nil) {
@@ -69,9 +72,14 @@
     NSError *err = nil;
 
     NSString *filePath = nil;
+    NSString *fileName = nil;
 
-    for (UIImage *photo in photos) {
-        filePath = [NSString stringWithFormat:@"%@/%@", tmpPath, [[NSProcessInfo processInfo] globallyUniqueString]];
+    UIImage *photo = nil;
+
+    for (NSInteger i = 0; i < photos.count; i++) {
+        photo = photos[i];
+        fileName = [assets[i] valueForKey:@"filename"];
+        filePath = [NSString stringWithFormat:@"%@/%@__%@", tmpPath, [[NSProcessInfo processInfo] globallyUniqueString], fileName];
         
         @autoreleasepool {
             data = UIImageJPEGRepresentation(photo, 1);
