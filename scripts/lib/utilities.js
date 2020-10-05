@@ -59,7 +59,7 @@ Utilities.getAppName = function(){
  * The ID of the plugin; this should match the ID in plugin.xml.
  */
 Utilities.getPluginId = function(){
-    return "cordova-plugin-firebasex";
+    return "cordova-plugin-image-picker";
 };
 
 Utilities.copyKey = function(platform){
