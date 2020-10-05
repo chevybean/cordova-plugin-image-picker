@@ -194,7 +194,6 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
             String alertTitle = getResources().getString(fakeR.getId("string", "maximum_selection_count_error_header"));
             builder.setTitle(alertTitle);
             String alertMsg = getResources().getString(fakeR.getId("string", "maximum_selection_count_error_message"));
-            int selectedCount = 9 - maxImageCount;
             builder.setMessage(String.format(alertMsg, maxImageCount));
             String alertButton = getResources().getString(fakeR.getId("string", "okay"));
             builder.setPositiveButton(alertButton, new DialogInterface.OnClickListener() {
