@@ -71,6 +71,8 @@
     NSString *filePath = nil;
 
     for (UIImage *photo in photos) {
+        NSMutableDictionary *picture = [[NSMutableDictionary alloc] init];
+
         filePath = [NSString stringWithFormat:@"%@/%@", tmpPath, [[NSProcessInfo processInfo] globallyUniqueString]];
         
         @autoreleasepool {
@@ -79,7 +81,10 @@
                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[err localizedDescription]];
                 break;
             } else {
-                [resultPathArray addObject:[[NSURL fileURLWithPath:filePath] absoluteString]];
+                picture[@"url"] = [[NSURL fileURLWithPath:filePath] absoluteString];
+                picture[@"width"] = @(photo.size.width * photo.scale);
+                picture[@"height"] = @(photo.size.height * photo.scale);
+                [resultPathArray addObject:picture];
             }
         }
     }
