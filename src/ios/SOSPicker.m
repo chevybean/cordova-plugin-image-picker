@@ -20,7 +20,7 @@
 
     UIColor *color = nil;
     NSString *photoSelImageName = nil;
-    
+
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:maximumImagesCount delegate:self];
 
     if ([uiThemeColorString isEqual:@"Yellow"]) {
