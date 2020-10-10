@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="multi_app_name">MultiImageChooser</string>
+    <string name="multi_app_name">写真</string>
     <string name="free_version_label">無料版 - 残りの画像: %d</string>
-    <string name="error_database">画像データベースを開く際にエラーがありました。問題を報告してください。</string>
+    <string name="error_database">写真データベースを開く際にエラーがありました。問題を報告してください。</string>
     <string name="requesting_thumbnails">サムネイルをリクエスト中です。お待ちください。</string>
-    <string name="processing_images_header">Processing Images</string>
-    <string name="processing_images_message">This may take a few moments</string>
-    <string name="maximum_selection_count_error_header">Limit reached</string>
-    <string name="maximum_selection_count_error_message">You can only select %d photos at once.</string>
-    <string name="discard">Cancel</string>
-    <string name="done">OK</string>
+    <string name="processing_images_header">写真の処理</string>
+    <string name="processing_images_message">少し時間がかかる場合があります、少々お待ちください。</string>
+    <string name="maximum_selection_count_error_header">写真</string>
+    <string name="maximum_selection_count_error_message">写真は%d枚まで指定できます。</string>
+    <string name="discard">キャンセル</string>
+    <string name="done">完了</string>
+    <string name="okay">OK</string>
 </resources>

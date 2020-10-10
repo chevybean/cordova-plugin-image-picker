@@ -173,8 +173,10 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         setupHeader();
         updateAcceptButton();
         progress = new ProgressDialog(this);
-        progress.setTitle("Processing Images");
-        progress.setMessage("This may take a few moments");
+        String progressTitle = getResources().getString(fakeR.getId("string","processing_images_header"));
+        progress.setTitle(progressTitle);
+        String progressMsg = getResources().getString(fakeR.getId("string", "processing_images_message"));
+        progress.setMessage(progressMsg);
     }
     
     @Override
@@ -189,9 +191,12 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         if (maxImages == 0 && isChecked) {
             isChecked = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Maximum " + maxImageCount + " Photos");
-            builder.setMessage("You can only select " + maxImageCount + " photos at a time.");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            String alertTitle = getResources().getString(fakeR.getId("string", "maximum_selection_count_error_header"));
+            builder.setTitle(alertTitle);
+            String alertMsg = getResources().getString(fakeR.getId("string", "maximum_selection_count_error_message"));
+            builder.setMessage(String.format(alertMsg, maxImageCount));
+            String alertButton = getResources().getString(fakeR.getId("string", "okay"));
+            builder.setPositiveButton(alertButton, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) { 
                     dialog.cancel();
                 }
@@ -480,13 +485,13 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     }
     
     
-    private class ResizeImagesTask extends AsyncTask<Set<Entry<String, Integer>>, Void, ArrayList<String>> {
+    private class ResizeImagesTask extends AsyncTask<Set<Entry<String, Integer>>, Void, ArrayList<Picture>> {
         private Exception asyncTaskError = null;
 
         @Override
-        protected ArrayList<String> doInBackground(Set<Entry<String, Integer>>... fileSets) {
+        protected ArrayList<Picture> doInBackground(Set<Entry<String, Integer>>... fileSets) {
             Set<Entry<String, Integer>> fileNames = fileSets[0];
-            ArrayList<String> al = new ArrayList<String>();
+            ArrayList<Picture> al = new ArrayList<Picture>();
             try {
                 Iterator<Entry<String, Integer>> i = fileNames.iterator();
                 Bitmap bmp;
@@ -538,27 +543,28 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                     }
 
                     file = this.storeImage(bmp, file.getName());
-                    al.add(Uri.fromFile(file).toString());
+                    Picture picture = new Picture(Uri.fromFile(file).toString(), bmp.getWidth(), bmp.getHeight());
+                    al.add(picture);
                 }
                 return al;
             } catch(IOException e) {
                 try {
                     asyncTaskError = e;
                     for (int i = 0; i < al.size(); i++) {
-                        URI uri = new URI(al.get(i));
+                        URI uri = new URI(al.get(i).url);
                         File file = new File(uri);
                         file.delete();
                     }
                 } catch(Exception exception) {
                     // the finally does what we want to do
                 } finally {
-                    return new ArrayList<String>();
+                    return new ArrayList<Picture>();
                 }
             }
         }
         
         @Override
-        protected void onPostExecute(ArrayList<String> al) {
+        protected void onPostExecute(ArrayList<Picture> al) {
             Intent data = new Intent();
 
             if (asyncTaskError != null) {
@@ -568,7 +574,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                 setResult(RESULT_CANCELED, data);
             } else if (al.size() > 0) {
                 Bundle res = new Bundle();
-                res.putStringArrayList("MULTIPLEFILENAMES", al);
+                res.putParcelableArrayList("MULTIPLEFILENAMES", al);
                 if (imagecursor != null) {
                     res.putInt("TOTALFILES", imagecursor.getCount());
                 }
