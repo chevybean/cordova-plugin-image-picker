@@ -18,7 +18,7 @@
 "Can not choose both photo and GIF" = "写真とGIFの両方を選択することはできません";
 "Select the video when in multi state, we will handle the video as a photo" = "多肢選択の状態で、ビデオを選択すると、ビデオをデフォルトに画像として送信します。";
 "Can not jump to the privacy settings page, please go to the settings page by self, thank you" = "プライバシー設定画面に遷移できません。手動で設定画面に移動してください。";
-"Select a maximum of %zd photos" = "写真は多くとも%zd 枚選択できます。";
+"Select a maximum of %zd photos" = "一度に送信できる写真は合計30枚までです。";
 "Select a minimum of %zd photos" = "少なくとも %zd 枚の写真を選択してください。";
 "Allow %@ to access your album in \"Settings -> Privacy -> Photos\"" = "iPhoneの「設定-プライバシー-写真」のオプションで、%@の携帯のアルバムへのアクセス権限を許可してください。";
 "Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\"" = "iPhoneの「設定-プライバシー-カメラ」で、%@のカメラへのアクセス権限を許可してください。";

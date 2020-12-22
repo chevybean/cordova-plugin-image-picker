@@ -7,7 +7,7 @@
     <string name="processing_images_header">写真の処理</string>
     <string name="processing_images_message">少し時間がかかる場合があります、少々お待ちください。</string>
     <string name="maximum_selection_count_error_header">写真</string>
-    <string name="maximum_selection_count_error_message">写真は%d枚まで指定できます。</string>
+    <string name="maximum_selection_count_error_message">一度に送信できる写真は合計30枚までです。</string>
     <string name="discard">キャンセル</string>
     <string name="done">完了</string>
     <string name="okay">OK</string>
